@@ -59,7 +59,7 @@ class Form extends Component {
     );
   }
 
-  renderInput(type = "text", span, name, label, options = [], onCLick) {
+  renderInput(type = "text", span, name, label, onCLick) {
     const { data, errors } = this.state;
 
     return (
@@ -71,8 +71,24 @@ class Form extends Component {
         onChange={this.handleChange}
         error={errors[name]}
         span={span}
-        options={options}
         onClick={onCLick}
+      />
+    );
+  }
+
+  renderSelect(span, name, label, options = []) {
+    const { data, errors } = this.state;
+
+    return (
+      <MyInput
+        type={"select"}
+        name={name}
+        value={data[name]}
+        label={label}
+        onChange={this.handleChange}
+        error={errors[name]}
+        span={span}
+        options={options}
       />
     );
   }

@@ -4,7 +4,7 @@ import Joi from "joi-browser/dist/joi-browser";
 import Page from "../components/Page";
 import { createBoleto } from "../services/boletoService";
 import { getClienteByCpfCnpj } from "../services/clienteService";
-import { Button, Input, InputGroup } from "reactstrap";
+import { Navigation } from "react-router-dom";
 
 class BoletoForm extends Form {
   state = {
@@ -37,8 +37,8 @@ class BoletoForm extends Form {
   doSubmit = async () => {
     try {
       const response = await createBoleto(this.state.data);
-      this.props.history.push("/boletos");
-      //window.location = '/'
+      console.log("indo apra outra pagina");
+      Navigation.transitionTo("/boletos");
     } catch (e) {
       if (this.isClientError(e)) {
         const errors = { ...this.state.errors };
@@ -48,19 +48,24 @@ class BoletoForm extends Form {
     }
   };
 
-  handleSeachClient = async () => {
+  handleSearchClient = async () => {
     const result = await getClienteByCpfCnpj(this.state.data.cpf_cnpj);
     const cliente = result.data[0];
+    const data = { ...this.state.data };
+
     if (!cliente) {
+      data.email = "";
+      data.name = "";
+      this.setState({ data });
       alert("Cliente não existe");
       return;
     }
     console.log("CLIENTE", cliente);
-    const data = { ...this.state.data };
+
     data.email = cliente.email;
     data.name = cliente.name;
     data.customer_id = cliente.id;
-    this.setState({ data }, () => console.log("STATE", this.state));
+    this.setState({ data });
   };
 
   render() {
@@ -74,18 +79,26 @@ class BoletoForm extends Form {
       return { id: item, name: item };
     });
 
+    const { data, errors } = this.state;
+
     return (
       <Page title={"Criar Boleto"}>
         <form onSubmit={this.handleSubmit} action="">
           <div className="row">
-            {this.renderInput("search", 4, "cpf_cnpj", "CPF/CNPJ do Pagador")}
+            {this.renderInput(
+              "search",
+              4,
+              "cpf_cnpj",
+              "CPF/CNPJ do Pagador",
+              this.handleSearchClient
+            )}
 
             {this.renderInput("text", 4, "name", "Nome")}
             {this.renderInput("text", 4, "email", "Email")}
             {this.renderInput("number", 4, "total", "Total")}
-            {this.renderInput("select", 4, "status", "Status", options)}
+            {this.renderSelect(4, "status", "Status", options)}
             {this.renderInput("date", 4, "due_date", "Vencimento")}
-            {this.renderInput("date", 4, "pay_date", "Data Vencimento")}
+            {this.renderInput("date", 4, "pay_date", "Data Pagamento")}
             {this.renderInput("text", 8, "message", "Mensagem")}
           </div>
           {this.renderButton("Criar Boleto")}
