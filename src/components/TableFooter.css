@@ -1,0 +1,8 @@
+.table-footer-select {
+    width: 100px !important;
+    height: 38px;
+}
+
+ol, ul, dl {
+    margin-bottom: 0 !important;
+}

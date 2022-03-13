@@ -5,14 +5,16 @@ import Page from "../components/Page";
 import { getBoletos } from "../services/boletoService";
 
 function BoletoList(props) {
-  const [boletos, setBoletos] = useState([]);
+  const [rowData, setRowData] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const columns = ["Nome", "CPF/CNPJ", "Vencimento", "Valor"];
   const fields = ["payer_name", "payer_cpf_cnpj", "due_date", "total"];
 
   useEffect(() => {
     async function fetch() {
-      const result = await getBoletos(); // httpService.get();// axios('http://localhost:8080/api/boletos')
-      await setBoletos(result.data.items);
+      const result = await getBoletos();
+      await setRowData(result.data.items);
+      await setTotalCount(result.data.totalItems);
     }
 
     fetch();
@@ -21,7 +23,12 @@ function BoletoList(props) {
   return (
     <Page title={"Boletos"}>
       <div className="mini-content">
-        <ResponsiveTable objs={boletos} columns={columns} fields={fields} />
+        <ResponsiveTable
+          rowData={rowData}
+          totalCount={totalCount}
+          columns={columns}
+          fields={fields}
+        />
         <Link className="btn btn-primary btn-sm mt-2 " to={"/boletoForm"}>
           <i className="fa fa-plus-circle mr-1" />
           Cadastrar Novo Boleto

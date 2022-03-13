@@ -1,5 +1,4 @@
 import React from "react";
-import PageTitle from "./PageTitle";
 
 function Page({ title, children }) {
   return (
@@ -7,7 +6,7 @@ function Page({ title, children }) {
       <ol className="breadcrumb bg-light">
         <li className="breadcrumb-item">{title}</li>
       </ol>
-      <div className="card mx-3">
+      <div className="card mx-3 mb-5">
         <div className="card-body p-0">
           <div className="mini-content">{children}</div>
         </div>

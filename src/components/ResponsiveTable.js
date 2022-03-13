@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import TableBody from "./TableBody";
 import TableHeader from "./TableHeader";
 import TableFooter from "./TableFooter";
 
-function ResponsiveTable({ objs, columns, fields }) {
+function ResponsiveTable({ rowData, totalCount, columns, fields }) {
   return (
     <div className="table-responsive">
       <table className="table table-bordered table-striped table-xs">
         <TableHeader columns={columns} />
-        <TableBody objs={objs} fields={fields} />
-        <TableFooter />
+        <TableBody rowData={rowData} fields={fields} />
+        <TableFooter count={totalCount} />
       </table>
     </div>
   );

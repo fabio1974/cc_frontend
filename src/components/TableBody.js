@@ -1,10 +1,10 @@
 import React from "react";
 
-function TableBody({ objs, fields }) {
+function TableBody({ rowData, fields }) {
   let tbody = (
     <>
       <tbody>
-        {objs.map((obj) => {
+        {rowData.map((obj) => {
           return (
             <tr key={obj.id} className="">
               {[
