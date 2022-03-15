@@ -6,7 +6,7 @@ function Page({ title, children }) {
       <ol className="breadcrumb bg-light">
         <li className="breadcrumb-item">{title}</li>
       </ol>
-      <div className="card mx-3 mb-5">
+      <div className="card mx-3 mt-3 mb-5">
         <div className="card-body p-0">
           <div className="mini-content">{children}</div>
         </div>

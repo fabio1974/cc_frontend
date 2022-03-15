@@ -4,8 +4,8 @@ import http from "./httpService";
 const apiUrl = "http://localhost:8080/api";
 const path = "boletos";
 
-export function getBoletos() {
-  return http.get(`${apiUrl}/${path}`);
+export function getBoletos(page, pageSize) {
+  return http.get(`${apiUrl}/${path}?page=${page}&pageSize=${pageSize}`);
 }
 
 export function getBoleto(id) {

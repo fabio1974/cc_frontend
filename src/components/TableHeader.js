@@ -1,6 +1,6 @@
 import React from "react";
 
-function TableHeader({ columns }) {
+function TableHeader({ columns, fetch }) {
   return (
     <thead>
       <tr>
@@ -10,7 +10,12 @@ function TableHeader({ columns }) {
           </th>
         ))}
         <th className="text-center">
-          <button className="btn btn-primary btn-sm ml-3 mr-3">Filtrar</button>
+          <button
+            onClick={() => fetch()}
+            className="btn btn-primary btn-sm ml-3 mr-3"
+          >
+            Filtrar
+          </button>
         </th>
       </tr>
     </thead>
