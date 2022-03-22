@@ -1,6 +1,6 @@
 import React from "react";
 
-function TableBody({ rowData, fields }) {
+function TableBody({ rowData, fields, buildActions }) {
   let tbody = (
     <>
       <tbody>
@@ -9,12 +9,15 @@ function TableBody({ rowData, fields }) {
             <tr key={obj.id} className="">
               {[
                 ...fields.map((field, index) => (
-                  <td key={index} className="text-center">
+                  <td
+                    key={index}
+                    className={index === 0 ? "text-start" : "text-center"}
+                  >
                     {obj[`${field}`]}
                   </td>
                 )),
                 <td key={fields.lenght + 1} className="text-center">
-                  bla-bla
+                  {buildActions(obj)}
                 </td>,
               ]}
             </tr>

@@ -4,8 +4,8 @@ import http from "./httpService";
 const apiUrl = "http://localhost:8080/api";
 const path = "clientes";
 
-export function getClientes() {
-  return http.get(`${apiUrl}/${path}`);
+export function getClientes(page, pageSize) {
+  return http.get(`${apiUrl}/${path}?page=${page}&pageSize=${pageSize}`);
 }
 
 export function getClienteByCpfCnpj(cpfCnpj) {
