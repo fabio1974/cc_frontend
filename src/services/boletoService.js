@@ -1,7 +1,6 @@
 import http from "./httpService";
 
-//const apiUrl = process.env.REACT_APP_API_URL;
-const apiUrl = "http://localhost:8080/api";
+const apiUrl = process.env.REACT_APP_API_URL;
 const path = "boletos";
 
 export function getBoletos(page, pageSize) {
