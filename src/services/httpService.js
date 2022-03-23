@@ -1,6 +1,5 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import LoadingContext from "../context/LoadingContext";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
