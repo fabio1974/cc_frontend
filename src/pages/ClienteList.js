@@ -47,7 +47,7 @@ function ClienteList(props) {
           setPageParams={setPageParams}
           buildActions={buildActions}
         />
-        <Link className="btn btn-primary btn-sm mt-2 " to={"/boletoForm"}>
+        <Link className="btn btn-primary btn-sm mt-2 " to={"/clienteForm"}>
           <i className="fa fa-plus-circle mr-1" />
           Cadastrar Novo Cliente
         </Link>

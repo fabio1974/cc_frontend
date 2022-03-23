@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Modal, ModalBody, Spinner } from "reactstrap";
 import LoadingModal from "./components/LoadingModal";
 import LoadingContext from "./context/LoadingContext";
+import ClienteForm from "./pages/ClienteForm";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -51,6 +52,7 @@ function App() {
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cliente" element={<ClienteList />} />
+          <Route path="/clienteForm" element={<ClienteForm />} />
           <Route path="/boleto" element={<BoletoList />} />
           <Route path="/boletoForm" element={<BoletoForm />} />
         </Routes>
