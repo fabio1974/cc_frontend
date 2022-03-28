@@ -4,7 +4,6 @@ import Joi from "joi-browser/dist/joi-browser";
 import Page from "../components/Page";
 import { getClienteByCpfCnpj } from "../services/clienteService";
 import withRouter from "../utils/withRouter";
-import { Spinner } from "reactstrap";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { createBoleto } from "../services/boletoService";
@@ -43,13 +42,14 @@ class BoletoForm extends Form {
   doSubmit = async () => {
     try {
       this.context.showMessage("criando boleto...");
-      const response = await createBoleto(this.state.data);
+      await createBoleto(this.state.data);
       this.context.closeMessage();
       toast.success("Boleto criado com sucesso!");
 
       this.props.router.navigate("/boleto");
       console.log("indo apra outra pagina", this.props.router);
     } catch (e) {
+      this.context.closeMessage();
       if (this.isClientError(e)) {
         const errors = { ...this.state.errors };
         errors.username = e.response.data;

@@ -24,6 +24,7 @@ class Form extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const errors = this.validate();
+    console.log(errors);
     this.setState({ errors: errors || {} });
     if (errors) return;
     this.doSubmit();
@@ -48,7 +49,11 @@ class Form extends Component {
   }
 
   renderButton(label) {
-    return <Button className="btn btn-primary ms-1 me-2 mt-3">{label}</Button>;
+    return (
+      <Button color={"primary"} className="ms-1 me-2 mt-3">
+        {label}
+      </Button>
+    );
   }
 
   renderBackButton(label, history) {

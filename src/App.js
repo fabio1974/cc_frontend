@@ -15,6 +15,7 @@ import { Modal, ModalBody, Spinner } from "reactstrap";
 import LoadingModal from "./components/LoadingModal";
 import LoadingContext from "./context/LoadingContext";
 import ClienteForm from "./pages/ClienteForm";
+import Pesquisa from "./pages/Pesquisa";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -55,6 +56,7 @@ function App() {
           <Route path="/clienteForm" element={<ClienteForm />} />
           <Route path="/boleto" element={<BoletoList />} />
           <Route path="/boletoForm" element={<BoletoForm />} />
+          <Route path="/pesquisa" element={<Pesquisa />} />
         </Routes>
       </main>
 

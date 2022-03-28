@@ -34,7 +34,7 @@ export const MyInput = ({
               {...rest}
               className="form-control"
             />
-            <Button onClick={onClick}>
+            <Button color={"primary"} onClick={onClick}>
               <BiSearchAlt />
             </Button>
           </InputGroup>
@@ -70,3 +70,15 @@ export const MyInput = ({
     </div>
   );
 };
+
+export function renderDisabledInput(span, value, label) {
+  return (
+    <MyInput
+      type={"text"}
+      value={value}
+      label={label}
+      span={span}
+      disabled={true}
+    />
+  );
+}
