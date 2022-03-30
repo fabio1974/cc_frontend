@@ -13,7 +13,11 @@ function Apreensao({ apreensao }) {
         )}
         {renderDisabledInput(4, apreensao.nomeModelo, "Modelo")}
         {renderDisabledInput(4, apreensao.cor, "Cor")}
-        {renderDisabledInput(4, apreensao.codControle, "Código de Controle")}
+        {renderDisabledInput(
+          4,
+          apreensao.idControlePatio,
+          "Número de Controle"
+        )}
         {renderDisabledInput(4, apreensao.valorDiariaVeic, "Valor da Diária")}
         {renderDisabledInput(
           4,
