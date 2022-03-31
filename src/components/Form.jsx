@@ -64,7 +64,15 @@ class Form extends Component {
     );
   }
 
-  renderInput(type = "text", span, name, label, onCLick, disabled = false) {
+  renderInput(
+    type = "text",
+    span,
+    name,
+    label,
+    onCLick,
+    onFocus,
+    disabled = false
+  ) {
     const { data, errors } = this.state;
 
     return (
@@ -78,6 +86,7 @@ class Form extends Component {
         span={span}
         onClick={onCLick}
         disabled={disabled}
+        onFocus={onFocus}
       />
     );
   }

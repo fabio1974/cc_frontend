@@ -22,16 +22,19 @@ class Pesquisa extends Form {
   };
 
   schema = {
-    placa: Joi.string().allow("").label("Placa"),
+    placa: Joi.string().min(7).max(7).allow("").label("Placa"),
     idControlePatio: Joi.string().allow("").label("Número de Controle"),
   };
+
+  isResult = false;
 
   handleSearchSigv = () => {
     const { placa, idControlePatio } = this.state.data;
     this.context.showMessage("pesquisando Sigv...");
     searchSigv(placa, idControlePatio)
       .then((res) => {
-        if (res.data.existe[0] === "T")
+        this.isResult = res.data.existe[0] === "T";
+        if (this.isResult)
           this.processSearchResponse(res.data.controlePatio[0]);
       })
       .catch((error) => {
@@ -41,6 +44,13 @@ class Pesquisa extends Form {
         this.context.closeMessage();
       });
   };
+
+  handleFocus(button) {
+    let data = this.state.data;
+    if (button === "placa") data.idControlePatio = "";
+    else data.placa = "";
+    this.setState(data);
+  }
 
   processSearchResponse = (json) => {
     let clienteJson = json.lanc_clientes_fornecedores_codCliente[0];
@@ -83,7 +93,8 @@ class Pesquisa extends Form {
             4,
             "placa",
             "Placa do Veículo",
-            this.handleSearchSigv
+            this.handleSearchSigv,
+            () => this.handleFocus("placa")
           )}
 
           {this.renderInput(
@@ -91,16 +102,29 @@ class Pesquisa extends Form {
             4,
             "idControlePatio",
             "Número de Controle",
-            this.handleSearchSigv
+            this.handleSearchSigv,
+            () => this.handleFocus("search")
           )}
         </div>
 
-        <div className="row">
-          {this.apreensao && <Apreensao apreensao={this.apreensao} />}
-        </div>
-        <BoletoForm cliente={this.cliente} />
+        {this.isResult && (
+          <>
+            <Apreensao apreensao={this.apreensao} />
+            <BoletoForm cliente={this.cliente} />
+          </>
+        )}
+        {!this.isResult && this.secondTime && (
+          <label className={"text-danger mt-5"}>
+            Sem resultados para a consulta
+          </label>
+        )}
       </Page>
     );
+  }
+
+  secondTime = false;
+  componentDidMount() {
+    this.secondTime = true;
   }
 }
 

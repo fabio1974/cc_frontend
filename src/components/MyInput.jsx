@@ -10,6 +10,7 @@ export const MyInput = ({
   options,
   span,
   onClick,
+  onFocus,
   ...rest
 }) => {
   return (
@@ -28,6 +29,7 @@ export const MyInput = ({
         {type === "search" && (
           <InputGroup>
             <Input
+              onInput={onFocus}
               name={name}
               id={name}
               type={type}

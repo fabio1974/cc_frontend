@@ -16,10 +16,10 @@ class BoletoForm extends Form {
     super(props);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  getData = () => {
     const cliente = this.props.cliente;
+    const data = { ...this.state.data };
     if (cliente) {
-      const data = { ...this.state.data };
       data.name = cliente.nomeCliente;
       data.email = cliente.emailCliente;
       data.city = cliente.endNomeCidade;
@@ -32,11 +32,18 @@ class BoletoForm extends Form {
       data.zip_code = cliente.endCep;
       data.message = cliente.message;
       data.total = cliente.valorTotal;
+    }
+    return data;
+  };
 
-      if (prevProps.cliente !== this.props.cliente) {
-        this.setState({ data });
-        console.log("set state", this.state);
-      }
+  componentDidMount() {
+    this.setState({ data: this.getData() });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.cliente !== this.props.cliente) {
+      this.setState({ data: this.getData() });
+      console.log("set state", this.state);
     }
   }
 
@@ -189,7 +196,15 @@ class BoletoForm extends Form {
                 {this.renderInput("text", 4, "state", "Estado")}
                 {this.renderInput("text", 4, "number", "Número")}
                 {this.renderInput("text", 4, "street", "Rua")}
-                {this.renderInput("text", 4, "district", "Bairro", false, true)}
+                {this.renderInput(
+                  "text",
+                  4,
+                  "district",
+                  "Bairro",
+                  false,
+                  false,
+                  true
+                )}
               </div>
             </Card>
 
@@ -197,7 +212,15 @@ class BoletoForm extends Form {
               <div className="row">
                 {this.renderInput("number", 4, "total", "Total")}
                 {this.renderInput("date", 4, "due_date", "Vencimento")}
-                {this.renderInput("text", 4, "message", "Mensagem", null, true)}
+                {this.renderInput(
+                  "text",
+                  4,
+                  "message",
+                  "Mensagem",
+                  false,
+                  false,
+                  true
+                )}
               </div>
             </Card>
 
