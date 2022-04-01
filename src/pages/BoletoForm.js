@@ -10,11 +10,14 @@ import { createBoleto } from "../services/boletoService";
 import Apreensao from "./Apreensao";
 import Card from "../components/Card";
 import data from "bootstrap/js/src/dom/data";
+import LoadingContext from "../context/LoadingContext";
 
 class BoletoForm extends Form {
   constructor(props) {
     super(props);
   }
+
+  static contextType = LoadingContext;
 
   getData = () => {
     const cliente = this.props.cliente;
@@ -76,7 +79,7 @@ class BoletoForm extends Form {
     pay_date: Joi.date().allow("").label("Data Pagamento"),
     message: Joi.string().required().label("Mensagem"),
     name: Joi.string().required().label("Nome"),
-    status: Joi.string().label("Status"),
+    status: Joi.string().allow("").label("Status"),
     zip_code: Joi.string().required().min(8).max(9).label("Cep"),
     city: Joi.string().required().max(50).label("Cidade"),
     state: Joi.string().required().label("Estado"),
@@ -95,10 +98,12 @@ class BoletoForm extends Form {
         const errors = { ...this.state.errors };
 
         if (!cliente) {
-          data.email = "";
-          data.name = "";
+          if (!this.state.data.name) {
+            data.email = "";
+            data.name = "";
+          }
           this.setState({ data });
-          toast.error("Cliente não existe");
+          toast.error("Cliente não existe na base da Iugu");
           return;
         }
 

@@ -3,7 +3,7 @@ import ResponsiveTable from "../components/ResponsiveTable";
 import Page from "../components/Page";
 import LoadingContext from "../context/LoadingContext";
 import { getClientes } from "../services/clienteService";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { GiGears } from "react-icons/gi";
 
 function ClienteList(props) {
@@ -36,23 +36,25 @@ function ClienteList(props) {
   }, [pageParams]);
 
   return (
-    <Page title={"Clientes"}>
-      <div className="mini-content">
-        <ResponsiveTable
-          rowData={rowData}
-          totalCount={totalCount}
-          columns={columns}
-          fields={fields}
-          pageParams={pageParams}
-          setPageParams={setPageParams}
-          buildActions={buildActions}
-        />
-        <Link className="btn btn-primary btn-sm mt-2 " to={"/clienteForm"}>
-          <i className="fa fa-plus-circle mr-1" />
-          Cadastrar Novo Cliente
-        </Link>
-      </div>
-    </Page>
+    <>
+      <Page title={"Clientes"}>
+        <div className="mini-content">
+          <ResponsiveTable
+            rowData={rowData}
+            totalCount={totalCount}
+            columns={columns}
+            fields={fields}
+            pageParams={pageParams}
+            setPageParams={setPageParams}
+            buildActions={buildActions}
+          />
+          <Link className="btn btn-primary btn-sm mt-2 " to={"/clienteForm"}>
+            <i className="fa fa-plus-circle mr-1" />
+            Cadastrar Novo Cliente
+          </Link>
+        </div>
+      </Page>
+    </>
   );
 }
 
