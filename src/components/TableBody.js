@@ -13,7 +13,9 @@ function TableBody({ rowData, fields, buildActions }) {
                     key={index}
                     className={index === 0 ? "text-start" : "text-center"}
                   >
-                    {obj[`${field}`]}
+                    {field === "status"
+                      ? translateStatus(obj[`${field}`])
+                      : obj[`${field}`]}
                   </td>
                 )),
                 <td key={fields.lenght + 1} className="text-center">
@@ -30,3 +32,30 @@ function TableBody({ rowData, fields, buildActions }) {
 }
 
 export default TableBody;
+
+const translateStatus = (status) => {
+  switch (status) {
+    case "pending":
+      return "pendente";
+    case "paid":
+      return "paga";
+    case "canceled":
+      return "cancelada";
+    case "in_analysis":
+      return "em análise";
+    case "draft":
+      return "rascunho";
+    case "partially_paid":
+      return "parcialmente paga";
+    case "refunded":
+      return "reembolsada";
+    case "expired":
+      return "expirada";
+    case "in_protest":
+      return "em protesto";
+    case "chargeback":
+      return "contestada";
+    default:
+      return "unknow";
+  }
+};

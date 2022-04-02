@@ -10,8 +10,14 @@ function BoletoList(props) {
   const [pageParams, setPageParams] = useState({ page: 0, pageSize: 10 });
   const [rowData, setRowData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
-  const columns = ["Nome", "CPF/CNPJ", "Vencimento", "Valor"];
-  const fields = ["payer_name", "payer_cpf_cnpj", "due_date", "total"];
+  const columns = ["Nome", "CPF/CNPJ", "Vencimento", "Valor", "Status"];
+  const fields = [
+    "payer_name",
+    "payer_cpf_cnpj",
+    "due_date",
+    "total",
+    "status",
+  ];
   const context = useContext(LoadingContext);
 
   const buildActions = (obj) => (
