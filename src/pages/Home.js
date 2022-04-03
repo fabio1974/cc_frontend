@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Page from "../components/Page";
 
-function Home(props) {
+function Home({ setShowSidebar }) {
+  useEffect(() => {
+    setShowSidebar(true);
+  });
+
   return <Page title={"My Home Page"}>Home Page</Page>;
 }
 

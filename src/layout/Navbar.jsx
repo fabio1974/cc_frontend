@@ -16,20 +16,14 @@ const Navbar = ({ user, toggleSidebar, showSidebar }) => {
               <img className="mb-2" src={logo} alt="Missing" height="40" />
             </Link>
 
-            <Link to="#" className={"menu-bars"}>
-              <FaBars onClick={toggleSidebar} />
-            </Link>
+            {showSidebar && (
+              <Link to="#" className={"menu-bars"}>
+                <FaBars onClick={toggleSidebar} />
+              </Link>
+            )}
 
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav">
-                <NavLink
-                  className="nav-item nav-link"
-                  aria-current="page"
-                  to="/"
-                >
-                  Home
-                </NavLink>
-
                 {/*{user && <Link className="nav-item nav-link" aria-current="page"
                                                to="/dashboard">Dashboard</Link>}*/}
 
@@ -38,24 +32,23 @@ const Navbar = ({ user, toggleSidebar, showSidebar }) => {
                 {!user && (
                   <React.Fragment>
                     <NavLink className="nav-item nav-link" to="/login">
-                      Login
+                      &nbsp;
                     </NavLink>
                     {/*<NavLink className="nav-item nav-link" to="/register">Register</NavLink>*/}
                   </React.Fragment>
                 )}
               </div>
             </div>
-            {user && (
-              <React.Fragment>
-                <div className="nav-item nav-link">
-                  <i className="fa fa-user mr-2" />
-                  {user.name}
-                </div>
-                <NavLink className="navbar-brand" to="/logout">
-                  Logout
-                </NavLink>
-              </React.Fragment>
-            )}
+
+            <React.Fragment>
+              <div className="nav-item nav-link">
+                <i className="fa fa-user mr-2" />
+                {"user.name"}
+              </div>
+              <NavLink className="nav-item" to="/logout">
+                Logout
+              </NavLink>
+            </React.Fragment>
           </div>
         </div>
 

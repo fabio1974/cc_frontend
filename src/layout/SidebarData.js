@@ -5,26 +5,26 @@ import { FaSearch } from "react-icons/fa";
 
 export const SidebarData = [
   {
-    title: "Home",
+    title: "Pesquisa Sigv",
     path: "/",
-    icon: <AiFillHome />,
-    cName: "nav-text",
-  },
-  {
-    title: "Pesquisa",
-    path: "/pesquisa",
     icon: <FaSearch />,
     cName: "nav-text",
   },
   {
-    title: "Clientes",
-    path: "/cliente",
-    icon: <IoMdPeople />,
+    title: "Listar Boletos",
+    path: "/boleto",
+    icon: <IoIosPaper />,
     cName: "nav-text",
   },
   {
-    title: "Boletos",
-    path: "/boleto",
+    title: "Criar Boleto",
+    path: "/boletoAvulso",
+    icon: <IoIosPaper />,
+    cName: "nav-text",
+  },
+  {
+    title: "Pesquisa Cliente",
+    path: "/pesquisaCliente",
     icon: <IoIosPaper />,
     cName: "nav-text",
   },

@@ -13,10 +13,6 @@ import data from "bootstrap/js/src/dom/data";
 import LoadingContext from "../context/LoadingContext";
 
 class BoletoForm extends Form {
-  constructor(props) {
-    super(props);
-  }
-
   static contextType = LoadingContext;
 
   getData = () => {
@@ -175,63 +171,77 @@ class BoletoForm extends Form {
   render() {
     return (
       <form onSubmit={this.handleSubmit} action="">
-        {this.state.data.total > 0 && (
-          <>
-            <Card title={"Dados do Pagador"}>
-              <div className="row">
-                {this.renderInput(
-                  "search",
-                  4,
-                  "cpf_cnpj",
-                  "CPF/CNPJ do Pagador",
-                  this.handleSearchClient
-                )}
+        <>
+          <Card title={"Dados do Pagador"}>
+            <div className="row">
+              {this.renderInput(
+                "search",
+                4,
+                "cpf_cnpj",
+                "CPF/CNPJ do Pagador",
+                this.handleSearchClient
+              )}
 
-                {this.renderInput("text", 4, "name", "Nome")}
-                {this.renderInput("text", 4, "email", "Email")}
+              {this.renderInput("text", 4, "name", "Nome")}
+              {this.renderInput("text", 4, "email", "Email")}
 
-                {this.renderInput(
-                  "search",
-                  4,
-                  "zip_code",
-                  "Cep",
-                  this.handleSearchEndereco
-                )}
-                {this.renderInput("text", 4, "city", "Cidade")}
-                {this.renderInput("text", 4, "state", "Estado")}
-                {this.renderInput("text", 4, "number", "Número")}
-                {this.renderInput("text", 4, "street", "Rua")}
-                {this.renderInput(
-                  "text",
-                  4,
-                  "district",
-                  "Bairro",
-                  false,
-                  false,
-                  true
-                )}
-              </div>
-            </Card>
+              {this.renderInput(
+                "search",
+                4,
+                "zip_code",
+                "Cep",
+                this.handleSearchEndereco
+              )}
+              {this.renderInput("text", 4, "city", "Cidade")}
+              {this.renderInput("text", 4, "state", "Estado")}
+              {this.renderInput("text", 4, "number", "Número")}
+              {this.renderInput("text", 4, "street", "Rua")}
+              {this.renderInput(
+                "text",
+                4,
+                "district",
+                "Bairro",
+                false,
+                false,
+                true
+              )}
+            </div>
+          </Card>
 
-            <Card title={"Dados do Boleto"}>
-              <div className="row">
-                {this.renderInput("number", 4, "total", "Total")}
-                {this.renderInput("date", 4, "due_date", "Vencimento")}
-                {this.renderInput(
-                  "text",
-                  4,
-                  "message",
-                  "Mensagem",
-                  false,
-                  false,
-                  true
-                )}
-              </div>
-            </Card>
+          <Card title={"Dados do Boleto"}>
+            <div className="row">
+              {this.renderInput(
+                "number",
+                4,
+                "total",
+                "Total",
+                false,
+                false,
+                this.props.boletoDisabled
+              )}
+              {this.renderInput(
+                "date",
+                4,
+                "due_date",
+                "Vencimento",
+                false,
+                false,
+                this.props.boletoDisabled
+              )}
+              {this.renderInput(
+                "text",
+                4,
+                "message",
+                "Mensagem",
+                false,
+                false,
+                this.props.mensagemDisabled
+              )}
+            </div>
+          </Card>
 
-            {this.renderButton("Criar Boleto")}
-          </>
-        )}
+          {this.renderButton("Gerar Boleto")}
+        </>
       </form>
     );
   }

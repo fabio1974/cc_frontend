@@ -84,6 +84,11 @@
     width: 190px;
 }
 
+.nav-item a:hover {
+    color: white;
+}
+
+
 .navbar-toggle{
     background-color: var(--bc);
     width: 100%;

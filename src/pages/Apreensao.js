@@ -13,10 +13,25 @@ function Apreensao({ apreensao }) {
         )}
         {renderDisabledInput(4, apreensao.nomeModelo, "Modelo")}
         {renderDisabledInput(4, apreensao.cor, "Cor")}
+
+        {renderDisabledInput(4, apreensao.nrAutoApreensao, "Número da OS")}
+
         {renderDisabledInput(
           4,
           apreensao.idControlePatio,
           "Número de Controle"
+        )}
+
+        {renderDisabledInput(4, apreensao.valorGuincho, "Valor do Guincho")}
+        {renderDisabledInput(
+          4,
+          apreensao.valorTotalServicos,
+          "Valor dos Serviços"
+        )}
+        {renderDisabledInput(
+          4,
+          apreensao.valorTotalVistorias,
+          "Valor das Vistorias"
         )}
         {renderDisabledInput(4, apreensao.valorDiariaVeic, "Valor da Diária")}
         {renderDisabledInput(
@@ -31,6 +46,7 @@ function Apreensao({ apreensao }) {
           apreensao.statusPagamento,
           "Status do Pagamento"
         )}
+        {renderDisabledInput(4, apreensao.dataHoraOS, "Data da Entrada")}
       </div>
     </Card>
   );

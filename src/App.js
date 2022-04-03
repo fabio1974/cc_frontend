@@ -16,9 +16,11 @@ import LoadingModal from "./components/LoadingModal";
 import LoadingContext from "./context/LoadingContext";
 import ClienteForm from "./pages/ClienteForm";
 import Pesquisa from "./pages/Pesquisa";
+import BoletoAvulso from "./pages/BoletoAvulso";
+import PesquisaCliente from "./pages/PesquisaCliente";
 
 function App() {
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -48,15 +50,29 @@ function App() {
         />
 
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/"
+            element={<Pesquisa setShowSidebar={setShowSidebar} />}
+          />
+          <Route
+            path="/home"
+            element={<Pesquisa setShowSidebar={setShowSidebar} />}
+          />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/cliente" element={<ClienteList />} />
-          <Route path="/clienteForm" element={<ClienteForm />} />
-          <Route path="/boleto" element={<BoletoList />} />
-          <Route path="/boletoForm" element={<BoletoForm />} />
-          <Route path="/pesquisa" element={<Pesquisa />} />
+          <Route
+            path="/boleto"
+            element={<BoletoList setShowSidebar={setShowSidebar} />}
+          />
+          <Route
+            path="/boletoAvulso"
+            element={<BoletoAvulso setShowSidebar={setShowSidebar} />}
+          />
+
+          <Route
+            path="/pesquisaCliente"
+            element={<PesquisaCliente setShowSidebar={setShowSidebar} />}
+          />
         </Routes>
       </main>
 

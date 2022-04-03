@@ -10,21 +10,20 @@ import Joi from "joi-browser/dist/joi-browser";
 import BoletoForm from "./BoletoForm";
 import { processSearchResponse } from "../utils/utils";
 
-class Pesquisa extends Form {
+class PesquisaCliente extends Form {
   static contextType = LoadingContext;
 
   state = {
-    data: { placa: "", idControlePatio: "" },
+    data: { placa: "", nrAutoApreensao: null },
     errors: {},
   };
 
-  componentDidMount() {
-    this.props.setShowSidebar(true);
-  }
-
   schema = {
-    placa: Joi.string().min(7).max(7).allow("").label("Placa"),
-    idControlePatio: Joi.string().allow("").label("Número de Controle"),
+    placa: Joi.string().required().min(7).max(7).allow("").label("Placa"),
+    nrAutoApreensao: Joi.string()
+      .required()
+      .min(5)
+      .label("No. OS de Apreensão"),
   };
 
   isResult = false;
@@ -32,16 +31,24 @@ class Pesquisa extends Form {
   json = {};
 
   handleSearchSigv = () => {
-    const { placa, idControlePatio } = this.state.data;
+    const { placa, nrAutoApreensao } = this.state.data;
+
+    if (!placa || !nrAutoApreensao) {
+      toast.error("Número da OS e placa devem ser preenchido");
+      return;
+    }
+
     this.context.showMessage("pesquisando Sigv...");
-    searchSigv(placa, idControlePatio)
+    searchSigv(placa, null)
       .then((res) => {
         this.isResult = res.data.existe[0] === "T";
         if (this.isResult) {
           this.json = processSearchResponse(
             res.data.controlePatio[res.data.controlePatio.length - 1]
           );
-          this.isEmpty = false;
+          if (this.json.apreensao.nrAutoApreensao !== nrAutoApreensao) {
+            this.isEmpty = true;
+          } else this.isEmpty = false;
         } else this.isEmpty = true;
       })
       .catch((error) => {
@@ -65,28 +72,32 @@ class Pesquisa extends Form {
       <Page title={"Pesquisa por Placa"}>
         <div className="row">
           {this.renderInput(
-            "search",
-            4,
-            "placa",
-            "Placa do Veículo",
-            this.handleSearchSigv,
-            () => this.handleFocus("placa")
+            "text",
+            3,
+            "nrAutoApreensao",
+            "No. OS de Apreensão",
+            false,
+            () => this.handleFocus("search")
           )}
 
           {this.renderInput(
             "search",
-            4,
-            "idControlePatio",
-            "Número de Controle",
+            3,
+            "placa",
+            "Placa do Veículo",
             this.handleSearchSigv,
-            () => this.handleFocus("search")
+            () => this.handleFocus("placa")
           )}
         </div>
 
         {!this.isEmpty && this.isResult && (
           <>
             <Apreensao apreensao={this.json.apreensao} />
-            <BoletoForm cliente={this.json.cliente} mensagemDisabled />
+            <BoletoForm
+              cliente={this.json.cliente}
+              mensagemDisabled
+              boletoDisabled
+            />
           </>
         )}
         {this.isEmpty && (
@@ -97,6 +108,12 @@ class Pesquisa extends Form {
       </Page>
     );
   }
+
+  secondTime = false;
+  componentDidMount() {
+    this.secondTime = true;
+    this.props.setShowSidebar(false);
+  }
 }
 
-export default withRouter(Pesquisa);
+export default withRouter(PesquisaCliente);

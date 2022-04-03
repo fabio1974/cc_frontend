@@ -6,7 +6,7 @@ import { getBoletos } from "../services/boletoService";
 import LoadingContext from "../context/LoadingContext";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 
-function BoletoList(props) {
+function BoletoList({ setShowSidebar }) {
   const [pageParams, setPageParams] = useState({ page: 0, pageSize: 10 });
   const [rowData, setRowData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -27,6 +27,7 @@ function BoletoList(props) {
   );
 
   useEffect(() => {
+    setShowSidebar(true);
     async function fetch() {
       context.showMessage("buscando boletos...");
       const result = await getBoletos(pageParams.page, pageParams.pageSize);
@@ -49,10 +50,6 @@ function BoletoList(props) {
           setPageParams={setPageParams}
           buildActions={buildActions}
         />
-        <Link className="btn btn-primary btn-sm mt-2 " to={"/boletoForm"}>
-          <i className="fa fa-plus-circle mr-1" />
-          Cadastrar Novo Boleto
-        </Link>
       </div>
     </Page>
   );
